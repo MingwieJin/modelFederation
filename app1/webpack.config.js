@@ -32,17 +32,18 @@ module.exports = {
         }),
         // webpack5 federation
         new ModuleFederationPlugin({
-            // 远程应用时被其他应用引入的js文件名称。对应app2引入的的remoteEntry.js
+            // 构建输出的文件名。对应app2引入的的remoteEntry.js
             filename: "remoteEntry.js",
-            // 应用名，全局唯一，不可冲突
+            // 必传值，即输出的模块名，被远程引用时路径为${name}/${expose}
             name: "app1",
-            // UMD标准导出，和name保持一致即可
+            // 声明全局变量的方式，name为umd的name
             library: { type: "var", name: "app1" },
             // 需要暴露的模块，使用时通过 `${name}/${expose}` 引入
             exposes: {
                 './Header': "./src/components/Header.vue",
+                './Footer': "./src/components/Footer.vue",
             },
-            // 若是配置了这个属性。webpack在加载的时候会先判断本地应用是否存在对应的包，若是不存在，则加载远程应用的依赖包。
+            // 与其他应用之间可以共享的第三方依赖，使你的代码中不用重复加载同一份依赖
             // shared: ["vue"]
           })
       ]

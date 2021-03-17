@@ -34,7 +34,7 @@ module.exports = {
         new ModuleFederationPlugin({
           // 应用名，全局唯一，不可冲突
           name: "app2",
-          // 声明需要引用的远程应用。我们这里从app1 引入hender文件
+          // 远程引用的应用名及其别名的映射，使用时以key值作为name
           remotes: {
             app1: "app1@http://localhost:3000/remoteEntry.js",
           },
